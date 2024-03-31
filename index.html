@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="enter city name" spellcheck="false">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <img src="./sun.png" alt="" class="weather-icon">
+        <h1 class="temp">7<sup>o</sup>C
+</h1>
+<h2 class="city">NEW YORK</h2>
+<div class="weather">
+    <div class="humadity">
+        <div class="image-humadity">
+        <img src="./humidity.png" alt="">
+        </div>
+        <div class="text">
+            <p class="percent">48%</p>
+            <p class="smal">Humidity</p>
+
+        </div>
+
+    </div>
+    <div class="wind">
+        <div class="image-wind">
+        <img src="./wind.png" alt="">
+        </div>
+        <div class="text">
+            <p class="number">10.29 km/h</p>
+            <p class="smal">Wind Speed</p>
+        </div>
+    </div>
+
+</div>
+
+
+    </div>
+<script>
+   
+   const apiKey = 'ad6ea651d13521897a9a92fbde4f6c59';
+
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather? units=metric&q=bangalore";
+const searchBox=document.querySelector(".search input")
+const searchBtn=document.querySelector(".search button")
+const weatherIcon=document.querySelector(".weather-icon")
+async function checkWeather(){
+const response = await fetch (apiUrl + `&appid=${apiKey}`);
+ var data = await response.json();
+console.log(data);
+document.querySelector(".city").innerHTML=data.name;
+document.querySelector(".temp").innerHTML=data.main.temp+"c";
+document.querySelector(".percent").innerHTML=data.main.percent + "%";
+document.querySelector(".number").innerHtml=data.number.speed + "km/h";
+ if(data.weather[0].main=="Clouds"){
+     weatherIcon.src="image./cloudy.png";
+
+
+
+ }
+ else if(data.weather[0].main == "Clear"){
+     weatherIcon.src="image./cloudy (1).png";
+
+ }
+
+ else if (data.weather[0].main == "Rain"){
+    weatherIcon.src="image./cloudy (2).png";
+ }
+ else if (data.weather[0].main == "Drizzle"){
+    weatherIcon.src="image./cloudy (2).png";
+ } 
+
+}
+
+searchBtn.addEventListener("click", ()=>{
+    checkWeather(searchBox.value);
+})
+
+
+</script>
+</body>
+</html>
